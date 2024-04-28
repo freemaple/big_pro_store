@@ -1,0 +1,26 @@
+{{#if product.related_products}}
+    {{#if carousel }}
+    <section class="content productView-upsell">
+        <h2 class="page-heading"><span>{{lang 'products.related_products'}}</span></h2>
+        {{> components/products/carousel products=product.related_products columns=6 show_wishlist=settings.show_wishlist show_rating=settings.show_product_rating}}
+    </section>
+    {{else}}
+    <section class="content productView-upsell">
+     <h2 class="page-heading"><span>{{lang 'products.related_products'}}</span></h2>
+     <ul class="productGrid productGrid--maxCol{{ columns }}" data-product-type="related_products"{{#if theme_settings.alternative_card_panels}} data-equalizer-watch{{/if}} {{#if settings.data_tag_enabled}} data-list-name="Featured Products" {{/if}}>
+            {{#each product.related_products}}
+                <li class="product">
+                    {{>components/products/card settings=../settings theme_settings=../theme_settings customer=../customer show_wishlist=../show_wishlist show_rating=../show_rating event="list" position=(add @index 1)}}
+                </li>
+            {{/each}}
+        </ul>
+    </section>
+    {{/if}}
+{{/if}}
+
+{{#if product.similar_by_views}}
+    <section class="content productView-upsell">
+        <h2 class="page-heading"><span>{{lang 'products.similar_by_views'}}</span></h2>
+        {{> components/products/carousel products=product.similar_by_views columns=6 show_wishlist=settings.show_wishlist show_rating=settings.show_product_rating}}
+    </section>
+{{/if}}

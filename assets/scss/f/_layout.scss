@@ -1,0 +1,103 @@
+html,
+body {
+    overflow-x: hidden;
+    overflow-y: visible;
+    width: 100%;
+
+    @include breakpoint("medium") {
+        overflow-x: inherit;
+    }
+}
+
+body {
+    &.has-globalBanner {
+        padding-top: 125px;
+
+        @include breakpoint("medium") {
+            padding-top: 0;
+
+            &.has-fixed-header-simple {
+                padding-top: remCalc(170);
+            }
+        }
+    }
+
+    &.has-fixed-header-simple {
+        @include breakpoint("medium") {
+            padding-top: remCalc(120);
+        }
+    }
+}
+
+.body {
+    &.has-globalBanner {
+        @include breakpoint("medium") {
+            margin: spacing("single") 0;
+        }
+    }
+
+    @include breakpoint("medium") {
+        margin: spacing("single") 0;
+    }
+}
+
+.content {
+    @include clearfix;
+    margin-bottom: spacing("single");
+}
+
+.page-heading span:after {
+    border-bottom: remCalc(2) solid $header-font-color;
+    content: "";
+    display: block;
+    margin: 1.5rem auto 0;
+    max-width: 70%;
+    width: 6rem;
+}
+
+.category-description:after {
+    border-bottom: remCalc(1) solid $color-textBase;
+    content: "";
+    display: block;
+    margin: 2rem auto;
+    max-width: 70%;
+    width: 6rem;
+}
+
+.heroCarousel-title:after {
+    border-bottom: remCalc(2) solid $carousel-title-color;
+    content: "";
+    display: block;
+    margin: 0.75rem auto 1.5rem;
+    max-width: 70%;
+    width: 6rem;
+
+    .left &,
+    .right & {
+        @include breakpoint("medium") {
+            margin-left: 0;
+        }
+    }
+}
+
+.modal {
+    transform: translate(-50%, -51%);
+}
+
+.addthis_toolbox {
+    margin-top: spacing("single");
+}
+
+@if stencilString("breadcrumbs_on_mobile") == "show" {
+    .breadcrumbs {
+        display: block;
+
+        .is-active.breadcrumb--product {
+            display: none;
+
+            @include breakpoint("medium") {
+                display: inline-block;
+            }
+        }
+    }
+}

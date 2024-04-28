@@ -1,0 +1,25 @@
+{{#if theme_settings.hero_width '===' 'contain'}}<div class="container hero">{{/if}}
+    <section class="heroStoryboard show--1">
+        {{#each carousel.slides}}
+        {{#if @index '===' 0}}
+        <div class="heroCarousel-slide {{../../theme_settings.hero_align}} slide--{{@index}} {{#if ../../theme_settings.homepage_stretch_carousel_images}}heroCarousel-slide--stretch{{/if}}">
+            <a href="{{url}}">
+                <img class="heroCarousel-image lazyload" src="{{cdn 'img/loading.svg'}}" data-src="{{image}}" alt="{{alt_text}}" title="{{alt_text}}"
+                {{#if image_width}}width="{{image_width}}"{{/if}} {{#if image_height}}height="{{image_height}}"{{/if}} />
+                {{#if heading}}
+                    {{> components/f/hero/carousel-content show_background=true theme_settings=../../../theme_settings}}
+                {{else}}
+                    {{#if text}}
+                        {{> components/f/hero/carousel-content show_background=true theme_settings=../../../../theme_settings}}
+                    {{else}}
+                        {{#if button_text}}
+                            {{> components/f/hero/carousel-content show_background=false theme_settings=../../../../../theme_settings}}
+                        {{/if}}
+                    {{/if}}
+                {{/if}}
+            </a>
+        </div>
+        {{/if}}
+        {{/each}}
+    </section>
+{{#if theme_settings.hero_width '===' 'contain'}}</div>{{/if}}

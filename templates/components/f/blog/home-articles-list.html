@@ -1,0 +1,35 @@
+<section class="content">
+    <h2 class="page-heading"><span>{{lang 'blog.recent_posts'}}</span></h2>
+    <ul class="blogPosts postColumns--{{columns}}" data-equalizer>
+        {{#each posts}}
+        <li class="blogPost"{{> components/f/animations/aos delay=(multiply (add @index 1) 20) theme_settings=../theme_settings}} data-equalizer-watch>
+            <article class="card">
+                {{#if thumbnail.data}}
+                    <figure class="card-figure">
+                        <a href="{{url}}">
+                            <div class="card-img-container">
+                                <img class="card-image blogPost-thumbnail lazyload" data-sizes="auto" src="{{cdn 'img/loading.svg'}}" data-src="{{getImage thumbnail ../../theme_settings.blog_listing_size}}" alt="{{thumbnail.alt}}">
+                            </div>
+                        </a>
+                    </figure>
+                {{/if}}
+                <div class="card-body">
+                    <p class="card-text blogPost-publishedDate">{{date_published}}</p>
+                    <h3 class="card-title blogPost-title"><a href="{{url}}">{{title}}</a></h3>
+                    {{#if ../theme_settings.show_blog_card_summary}}
+                        <p class="card-text">{{{ellipsis summary}}}</p>
+                    {{/if}}
+                    {{#if ../theme_settings.show_blog_card_author}}
+                        {{#if author}}
+                            <p class="card-text blogPost-author">{{lang 'blog.posted_by' name=author}}</p>
+                        {{/if}}
+                    {{/if}}
+                </div>
+            </article>
+        </li>
+        {{/each}}
+    </ul>
+    <div class="blogPosts-more">
+        <a href="{{blog.url}}">{{lang 'blog.view_all'}}</a>
+    </div>
+</section>

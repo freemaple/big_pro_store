@@ -1,0 +1,7 @@
+<div class="heroCarousel-content{{#unless show_background}} heroCarousel-content--empty{{/unless}}">
+    {{#if heading}}<h{{#if @index '===' 0}}1{{else}}2{{/if}} class="heroCarousel-title">{{{heading}}}</h{{#if @index '===' 0}}1{{else}}2{{/if}}>{{/if}}
+    {{#if text}}<p class="heroCarousel-description">{{{text}}}</p>{{/if}}
+    {{#if button_text}}
+        <span class="{{#if show_background}}heroCarousel-action{{else}}button button--primary{{/if}}">{{button_text}}</span>
+    {{/if}}
+</div>

@@ -1,0 +1,31 @@
+.eapps-instagram-feed * {
+    // scss-lint:disable ImportantRule
+    font-family: stencilFontFamily("body-font") !important;
+    font-size: $fontSize-root !important;
+}
+
+.eapps-instagram-feed-title {
+    // scss-lint:disable ImportantRule
+    font-family: $fontFamily-headings !important;
+    font-size: $fontSize-larger !important;
+    text-transform: uppercase !important;
+
+    &:after {
+        border-bottom: remCalc(2) solid $header-font-color;
+        content: "";
+        display: block;
+        margin: 2rem auto 0;
+        max-width: 70%;
+        width: 6rem;
+    }
+}
+
+.eapps-instagram-feed-posts-grid-load-more {
+    // scss-lint:disable ImportantRule
+    border-radius: 0 !important;
+    border-width: 2px !important;
+    height: 4rem !important;
+    line-height: 2rem !important;
+    padding: remCalc(11) !important;
+    text-transform: uppercase !important;
+}

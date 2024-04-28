@@ -1,0 +1,21 @@
+<ul class="tabs" data-tab>
+    <li class="tab is-active">
+        <a class="tab-title" href="#tab-description">{{lang 'products.description'}}</a>
+    </li>
+    {{#if product.warranty}}
+        <li class="tab">
+            <a class="tab-title" href="#tab-warranty">{{#if theme_settings.rename_warranty_field}}{{sanitize theme_settings.rename_warranty_field}}{{else}}{{lang 'products.warranty'}}{{/if}}</a>
+        </li>
+    {{/if}}
+</ul>
+<div class="tabs-contents">
+    <div class="tab-content is-active" id="tab-description" {{#if settings.data_tag_enabled}} data-event-type="product" {{/if}}>
+        {{{product.description}}}
+        {{{snippet 'product_description'}}}
+    </div>
+   {{#if product.warranty}}
+       <div class="tab-content" id="tab-warranty">
+           {{{product.warranty}}}
+       </div>
+   {{/if}}
+</div>

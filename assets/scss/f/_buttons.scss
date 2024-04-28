@@ -1,0 +1,11 @@
+.button {
+    border-width: 2px;
+    font-family: stencilFontFamily("body-font");
+    height: 4rem;
+    line-height: 2rem;
+
+    .form-increment & {
+        border: 0;
+        line-height: normal;
+    }
+}

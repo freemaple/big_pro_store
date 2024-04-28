@@ -1,0 +1,77 @@
+{{#unless (if template '===' 'pages/home')}}
+    {{#if banners.bottom}}
+    <div class="banners banner-bottom" data-banner-location="bottom">
+        <div class="banner">
+            {{{limit banners.bottom 1}}}
+        </div>
+    </div>
+    {{/if}}
+{{/unless}}
+<footer class="footer footer-simple" role="contentinfo">
+    {{#if settings.show_newsletter_box}}
+        <div class="footer-simple-newsletter"{{> components/f/animations/aos delay=400 offset=20}}>
+            <div class="container">
+                {{> components/common/subscription-form}}
+            </div>
+        </div>
+    {{/if}}
+    <div class="footer-simple-info">
+        <div class="container footer-simple-navigation"{{> components/f/animations/aos delay=100 offset=20}}>
+            <ul class="footer-info-list">
+                {{#each pages}}
+                    <li>
+                        <a href="{{url}}">{{name}}</a>
+                    </li>
+                {{/each}}
+                {{#and theme_settings.shop_by_brand_show_footer shop_by_brand.length}}
+                    <li>
+                        <a href="{{urls.brands}}">{{lang 'footer.brands'}}</a>
+                    </li>
+                {{/and}}
+                <li>
+                    <a href="{{urls.sitemap}}">{{lang 'sitemap.page_title'}}</a>
+                </li>
+            </ul>
+        </div>
+        {{#if theme_settings.social_icon_placement_bottom}}
+            <h5 class="footer-info-heading">{{lang 'social.connect'}}</h5>
+            {{> components/common/social-links}}
+        {{/if}}
+        {{#if theme_settings.show_payment_methods}}
+            {{> components/f/footer/payment-icons}}
+        {{/if}}
+        {{#if theme_settings.geotrust_ssl_common_name}}
+            <div class="footer-geotrust-ssl-seal">
+                {{> components/common/geotrust-ssl-seal}}
+            </div>
+        {{/if}}
+        {{#if settings.address}}
+        <div class="footer-copyright">
+            {{#if theme_settings.show_phone_number_in_header}}
+                <div><a href="tel:{{settings.phone_number}}">{{lang 'header.need_help'}} {{settings.phone_number}}</a></div>
+            {{/if}}
+            <address>{{settings.address}}</address>
+        </div>
+        {{/if}}
+        {{#if theme_settings.show_copyright_footer}}
+            <div class="footer-copyright">
+                <p class="powered-by">&copy; {{moment format="YYYY"}} {{settings.store_name}} </p>
+            </div>
+        {{/if}}
+        {{#or theme_settings.show_designed_by theme_settings.show_powered_by}}
+            <div class="footer-copyright">
+                <p class="powered-by">
+                    {{#if theme_settings.show_designed_by}}
+                        <span>Designed by <a href="https://www.flairconsultancy.com?utm_source=store&amp;utm_medium=designedbyFlair" rel="nofollow" target="_blank">Flair</a>.</span>
+                    {{/if}}
+                    {{#if theme_settings.show_powered_by}}
+                        <span>Powered by <a href="https://www.bigcommerce.com?utm_source=merchant&amp;utm_medium=poweredbyBC" rel="nofollow" target="_blank">BigCommerce</a>.</span>
+                    {{/if}}
+                </p>
+            </div>
+        {{/or}}
+    </div>
+</footer>
+{{#if theme_settings.show_newsletter_popup}}
+    {{> components/f/newsletter-popup/popup}}
+{{/if}}

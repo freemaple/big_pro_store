@@ -1,0 +1,15 @@
+<section class="content {{#if theme_settings.alternative_card_panels}}alternativeProducts{{/if}}"{{#if theme_settings.alternative_card_panels}} data-equalizer{{/if}}>
+    <h2 class="page-heading"{{#if theme_settings.alternative_card_panels}} data-equalizer-watch{{/if}}><span{{> components/f/animations/aos}}>{{lang 'products.featured' }}</span></h2>
+
+    {{#if carousel }}
+        {{> components/products/carousel products=products alt=theme_settings.alternative_card_panels show_wishlist=show_wishlist show_rating=show_rating hide_dots=true}}
+    {{else}}
+        <ul class="productGrid productGrid--maxCol{{ columns }}" data-product-type="featured"{{#if theme_settings.alternative_card_panels}} data-equalizer-watch{{/if}} {{#if settings.data_tag_enabled}} data-list-name="Featured Products" {{/if}}>
+            {{#each products}}
+                <li class="product">
+                    {{>components/products/card settings=../settings theme_settings=../theme_settings customer=../customer show_wishlist=../show_wishlist show_rating=../show_rating event="list" position=(add @index 1)}}
+                </li>
+            {{/each}}
+        </ul>
+    {{/if}}
+</section>

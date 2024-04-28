@@ -1,0 +1,159 @@
+.alternativeProducts {
+    margin-bottom: spacing("single");
+
+    @include breakpoint("large") {
+        .page-heading {
+            background-color: stencilColor("alternative_card_panel_bg");
+            color: stencilColor("alternative_card_panel_text");
+            display: table;
+            float: left;
+            margin: 0 spacing("single") 0 0;
+            width: calc(20% - 0.75rem);
+
+            span {
+                display: table-cell;
+                padding: spacing("base")*2;
+                vertical-align: middle;
+
+                &:after {
+                    border-color: stencilColor("alternative_card_panel_text");
+                }
+            }
+        }
+
+        .productCarousel,
+        .productGrid {
+            display: inline-block;
+            width: 80%;
+        }
+    }
+}
+
+
+.card-body {
+    @include breakpoint("small") {
+        text-align: center;
+    }
+}
+
+.card-title {
+    font-family: stencilFontFamily("body-font");
+}
+
+.card-figcaption {
+    bottom: 1rem;
+    height: auto;
+    padding: 0;
+    top: auto;
+
+    .card-figure:hover & {
+        opacity: 0;
+    }
+
+    .card:hover & {
+        background-color: none;
+        opacity: 1;
+    }
+}
+
+
+.card-figcaption-body {
+    transform: none;
+
+    input[type="checkbox"] {
+        display: none;
+    }
+
+    .button--round {
+        background-color: rgba(stencilColor("body-bg"),0.9);
+        border-radius: 50%;
+        display: inline-table;
+        height: remCalc(40);
+        line-height: normal;
+        margin: 0 0 spacing("single");
+        padding: 0;
+        width: remCalc(40);
+
+        + .button--round {
+            margin-left: spacing("quarter");
+        }
+    }
+
+    .button--square {
+        background-color: rgba(stencilColor("body-bg"),0.9);
+        display: inline-table;
+        height: remCalc(40);
+        line-height: normal;
+        margin: 0 0 spacing("single");
+        padding: 0;
+        width: remCalc(40);
+
+        + .button--square {
+            margin-left: spacing("quarter");
+        }
+    }
+
+    .button--primary {
+        background-color: stencilColor("button--primary-backgroundColor");
+        border-color: stencilColor("button--primary-backgroundColor");
+        color: stencilColor("button--primary-color");
+        display: table-cell;
+        margin-top: spacing("half");
+
+        &:hover {
+            background-color: stencilColor("button--primary-backgroundColorHover");
+            border-color: stencilColor("button--primary-backgroundColorHover");
+            color: stencilColor("button--primary-colorHover");
+        }
+
+        &:active {
+            background-color: stencilColor("button--primary-backgroundColorActive");
+            border-color: stencilColor("button--primary-backgroundColorActive");
+            color: stencilColor("button--primary-colorActive");
+        }
+    }
+
+    .icon {
+        display: table-cell;
+        line-height: 1;
+
+        svg {
+            @include square(17px);
+            fill: stencilColor("icon-color");
+            stroke: stencilColor("icon-color");
+        }
+    }
+}
+
+.card-rating {
+    margin-top: spacing("single");
+
+    .rating--small {
+        background-color: rgba(stencilColor("body-bg"),0.66666);
+        padding: spacing("eighth") spacing("half");
+    }
+}
+
+.brandName {
+    font-family: $secondary-font-family;
+    font-style: $secondary-font-style;
+}
+
+.productCarousel-slide,
+.product {
+    .card {
+        border: 1px solid stencilColor("body-bg");
+
+        @include breakpoint("medium") {
+            padding: spacing("half")+spacing("quarter");
+
+            &:hover {
+                border: container("border");
+            }
+        }
+    }
+}
+
+.card-figure {
+    background: stencilColor("body-bg");
+}

@@ -1,0 +1,143 @@
+.new-customer {
+    .panel {
+        border: container("border");
+        text-align: center;
+    }
+
+    .panel-header,
+    .panel-body {
+        background-color: stencilColor("body-bg");
+    }
+
+    .panel-header {
+        padding: (spacing("base") * 2) (spacing("double") * 1) 0;
+    }
+
+    .panel-body {
+        margin-bottom: 0;
+        padding: spacing("base") (spacing("double") * 2 / 3) (spacing("base") * 2);
+    }
+
+    .new-customer-fact-list {
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: spacing("base");
+        text-align: left;
+        width: 80%;
+
+        @include breakpoint("small") {
+            width: 40%;
+        }
+
+        @include breakpoint("medium") {
+            width: 85%;
+        }
+
+        @include breakpoint("large") {
+            width: 70%;
+        }
+    }
+
+    .button {
+        margin-bottom: 0;
+    }
+}
+
+
+// Account page
+// -----------------------------------------------------------------------------
+
+.navBar--account {
+    .navBar-item {
+        text-transform: uppercase;
+    }
+}
+
+.account-row p {
+    text-align: center;
+}
+
+// Addresses
+// -----------------------------------------------------------------------------
+
+.addressList {
+    text-align: center;
+}
+
+.panel--address {
+    .panel-body {
+        @include breakpoint("small") {
+            min-height: remCalc(280);
+        }
+    }
+
+    .form-actions {
+        @include breakpoint("small") {
+            left: 0;
+            text-align: center;
+            width: 100%;
+        }
+
+        .button {
+            padding-bottom: 1rem;
+            padding-top: 1rem;
+        }
+    }
+}
+
+.address-title {
+    text-transform: uppercase;
+}
+
+
+// Order details
+// -----------------------------------------------------------------------------
+
+.account-product-title {
+    text-transform: uppercase;
+
+    > a {
+        text-decoration: underline;
+    }
+}
+
+.account-orderStatus-action {
+    font-size: fontSize("smallest");
+    font-style: normal;
+}
+
+.account-content--fixedSmall {
+    @include breakpoint("medium") {
+        width: 65%;
+    }
+}
+
+.account-product-figure:after {
+    display: none;
+}
+
+.account-orderTotal {
+    width: 50%;
+}
+
+
+// Returns
+// -----------------------------------------------------------------------------
+
+.return-itemTitle {
+    font-weight: fontWeight("bold");
+    text-transform: uppercase;
+}
+
+
+// Wish lists
+// -----------------------------------------------------------------------------
+
+.table-actions .button {
+    padding-bottom: 1rem;
+    padding-top: 1rem;
+}
+
+.wishlist--remove-item {
+    text-align: center;
+}

@@ -1,0 +1,19 @@
+<div class="modal-body quickView">
+    {{> components/products/product-view settings=../settings schema=false}}
+</div>
+<style type="text/css">
+    @media(max-width: 769px){
+        .quickView .productView-description {
+            display: none;
+        }
+        .quickView .productView-img-container-box {
+            display: none;
+        }
+         .quickView .productView-details {
+             margin-bottom: 0px;
+         }
+         .quickView .sku-price-m {
+             margin-top: 0px;
+         }
+    }
+</style>

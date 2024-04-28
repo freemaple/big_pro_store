@@ -1,0 +1,29 @@
+---
+blog:
+    posts:
+        limit: 12
+        pages: 4
+        summary: 200
+---
+{{#partial "page"}}
+
+{{> components/common/breadcrumbs breadcrumbs=breadcrumbs}}
+
+<main class="page">
+    <h1 class="page-heading"><span>{{ blog.name }}</span></h1>
+
+    {{#if blog.post.body}}
+        {{> components/f/blog/post-content post=blog.post settings=../settings}}
+    {{else}}
+        <ul class="blogPosts postColumns--4" data-equalizer data-equalizer-mq="medium-up">
+            {{#each blog.posts}}
+                {{> components/f/blog/post post=this settings=../settings theme_settings=../theme_settings}}
+            {{/each}}
+        </ul>
+    {{/if}}
+
+    {{> components/common/paginator pagination.blog}}
+</main>
+
+{{/partial}}
+{{> layout/base}}

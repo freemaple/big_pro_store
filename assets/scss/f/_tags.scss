@@ -1,0 +1,75 @@
+.card-tags {
+    position: absolute;
+    top: 0;
+    z-index: zIndex("lowest");
+
+    .productView-product & {
+        display: inline-block;
+        position: relative;
+
+        + .productView-brand {
+            margin-top: spacing("single");
+        }
+    }
+}
+
+.storeTag {
+    display: inline-block;
+    font-family: $secondary-font-family;
+    font-size: fontSize("smallest");
+    font-style: $secondary-font-style;
+    margin-bottom: remCalc(5);
+    padding: remCalc(5) remCalc(8);
+    text-transform: $secondary-font-transform;
+
+    @include breakpoint("small") {
+        font-size: fontSize("smaller");
+        padding: remCalc(9) remCalc(12);
+    }
+
+    &.customTag {
+        background-color: stencilColor("custom_product_label_backgroundColor");
+        color: stencilColor("custom_product_label_text_color");
+
+        .icon svg {
+            fill: stencilColor("custom_product_label_text_color");
+            stroke: stencilColor("custom_product_label_text_color");
+        }
+    }
+
+    &.lowStock {
+        background-color: stencilColor("selling_fast_tag_backgroundColor");
+        color: stencilColor("selling_fast_tag_text_color");
+
+        .icon svg {
+            fill: stencilColor("selling_fast_tag_text_color");
+            stroke: stencilColor("selling_fast_tag_text_color");
+        }
+    }
+
+    &.saleTag {
+        background-color: stencilColor("sale_tag_backgroundColor");
+        color: stencilColor("sale_tag_text_color");
+
+        .icon svg {
+            fill: stencilColor("sale_tag_text_color");
+            stroke: stencilColor("sale_tag_text_color");
+        }
+    }
+
+    .saleSavingTag {
+        display: none;
+
+        @include breakpoint("medium") {
+            display: inline;
+        }
+    }
+
+    .icon {
+        @include square(14);
+    }
+
+    .icon svg {
+        stroke-width: 0.5;
+    }
+}

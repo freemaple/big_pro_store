@@ -1,0 +1,672 @@
+<div class="productView" {{#if settings.data_tag_enabled}} data-event-type="product" data-entity-id="{{product.id}}" data-name="{{product.title}}" data-product-category="{{#each product.category}}{{#if @last}}{{this}}{{else}}{{this}}, {{/if}}{{/each}}" data-product-brand="{{product.brand.name}}" data-product-price="{{#if product.price.with_tax}}{{product.price.with_tax.value}}{{else}}{{product.price.without_tax.value}}{{/if}}" data-product-variant="single-product-option"{{/if}}>
+    {{#each product.reviews.messages}}
+        {{#if error}}
+            {{> components/common/alert-error error}}
+        {{/if}}
+        {{#if success}}
+            {{> components/common/alert-success success}}
+        {{/if}}
+    {{/each}}
+
+    <section class="productView-details">
+        <div class="productView-product">
+            {{#or theme_settings.show_sale_tags theme_settings.show_custom_product_labels theme_settings.show_selling_fast_tags}}
+                <div class="card-tags">
+                    {{#or product.price.non_sale_price_with_tax product.price.non_sale_price_without_tax}}
+                        {{#if theme_settings.show_sale_tags}}
+                            {{> components/f/tags/sale-tag price=product.price}}
+                        {{/if}}
+                    {{/or}}
+                    {{#if theme_settings.show_custom_product_labels}}
+                        {{#each product.custom_fields}}
+                            {{#or (if this.name '===' 'Promotion Label') (if name '===' 'GridTag')}}
+                                {{> components/f/tags/custom-tag}}
+                            {{/or}}
+                        {{/each}}
+                    {{/if}}
+                </div>
+            {{/or}}
+            {{#if product.brand}}
+                {{{region name="product_above_brand"}}}
+                <h2 class="productView-brand"{{#if schema}} itemprop="brand" itemscope itemtype="http://schema.org/Brand"{{/if}}>
+                    <a href="{{product.brand.url}}"{{#if schema}} itemprop="url"{{/if}}><span{{#if schema}} itemprop="name"{{/if}}>{{product.brand.name}}</span></a>
+                </h2>
+            {{/if}}
+            {{{region name="product_above_title"}}}
+            <h1 class="productView-title" {{#if schema}}itemprop="name"{{/if}}>{{product.title}}</h1>
+        
+            {{{region name="product_below_title"}}}
+                <div class="pc-price-box">
+                    {{#if product.call_for_price}}
+                        <p class="productView-price">
+                            <span>{{product.call_for_price}}</span>
+                        </p>
+                    {{/if}}
+                    <div class="productView-price">
+                        {{#or customer (if theme_settings.restrict_to_login '!==' true)}}
+                            {{> components/products/price price=product.price schema_org=schema}}
+                        {{else}}
+                            {{> components/common/login-for-pricing}}
+                        {{/or}}
+                    </div>
+                </div>
+            {{{region name="product_below_price"}}}
+            <div class="productView-rating"{{#if product.num_reviews '>' 0}}{{#if schema}} itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating"{{/if}}{{/if}}>
+                {{#if settings.show_product_rating}}
+                    {{#if product.num_reviews '>' 0}}
+                        {{#if schema}}
+                            <meta itemprop="ratingValue" content="{{product.rating}}">
+                            <meta itemprop="ratingCount" content="{{product.num_reviews}}">
+                            <meta itemprop="reviewCount" content="{{product.num_reviews}}">
+                        {{/if}}
+                    {{/if}}
+                    {{> components/products/ratings rating=product.rating}}
+                    <span class="productView-reviewLink">
+                        {{#if product.num_reviews '>' 0}}
+                            <a href="{{product.url}}#product-reviews">
+                                {{lang 'products.reviews.link_to_review' total=product.num_reviews}}
+                            </a>
+                        {{else}}
+                            {{lang 'products.reviews.link_to_review' total=product.num_reviews}}
+                        {{/if}}
+                    </span>
+                {{/if}}
+                {{#if settings.show_product_reviews}}
+                    <span class="productView-reviewLink">
+                        <a href="{{product.url}}{{#if is_ajax}}#write_review{{/if}}"
+                           {{#unless is_ajax }}data-reveal-id="modal-review-form"{{/unless}}>
+                           {{lang 'products.reviews.new'}}
+                        </a>
+                    </span>
+                    {{> components/products/modals/writeReview}}
+                {{/if}}
+            </div>
+            {{{region name="product_below_rating"}}}
+            {{product.detail_messages}}
+        </div>
+    </section>
+
+    <section class="productView-images productView-image-pc" data-image-gallery>
+        <figure class="productView-image {{#gt product.images.length 1}}has-thumbs{{/gt}}"
+                data-image-gallery-main
+                data-zoom-image="{{getImage product.main_image 'zoom_size' (cdn theme_settings.default_image_product)}}"
+                >
+            <div class="productView-img-container">
+                <a href="{{getImage product.main_image 'zoom_size' (cdn theme_settings.default_image_product)}}">
+                    <img class="productView-image--default lazyload"
+                         data-sizes="auto"
+                         src="{{cdn 'img/loading.svg'}}"
+                         data-src="{{getImage product.main_image 'product_size' (cdn theme_settings.default_image_product)}}"
+                         data-zoom-target="{{getImage product.main_image 'zoom_size' (cdn theme_settings.default_image_product)}}"
+                         alt="{{product.main_image.alt}}" title="{{product.main_image.alt}}" data-main-image>
+                </a>
+            </div>
+        </figure>
+        {{#gt product.images.length 1}}
+        <ul class="productView-thumbs"{{#gt product.images.length 5}} data-slick='{
+                "infinite": true,
+                "dots": false,
+                "mobileFirst": true,
+                "slidesToShow": 4,
+                "slidesToScroll": 1,
+                "vertical": false,
+                "responsive": [
+                    {
+                        "breakpoint": 801,
+                        "settings": {
+                            "dots": false,
+                            "slidesToShow": 5,
+                            "vertical": true
+                        }
+                    },
+                    {
+                        "breakpoint": 620,
+                        "settings": {
+                            "slidesToShow": 6
+                        }
+                    },
+                    {
+                        "breakpoint": 520,
+                        "settings": {
+                            "slidesToShow": 5
+                        }
+                    }
+                ]
+            }'{{/gt}}>
+            {{#each product.images}}
+                <li class="productView-thumb">
+                    <a
+                        class="productView-thumbnail-link"
+                        href="{{getImage this 'product_size' (cdn ../theme_settings.default_image_product)}}"
+                        data-image-gallery-item
+                        data-image-gallery-new-image-url="{{getImage this 'product_size' (cdn ../theme_settings.default_image_product)}}"
+                        data-image-gallery-zoom-image-url="{{getImage this 'zoom_size' (cdn ../theme_settings.default_image_product)}}">
+                        <img class="lazyload" data-sizes="auto" src="{{cdn 'img/loading.svg'}}" data-src="{{getImage this 'productview_thumb_size' (cdn ../theme_settings.default_image_product)}}" alt="{{this.alt}}" title="{{this.alt}}">
+                    </a>
+                </li>
+            {{/each}}
+        </ul>
+        {{/gt}}
+    </section>
+    
+    
+    <section class="productView-image-m productView-images">
+        <div class="productView-img-container-box">
+             {{#gt product.images.length 0}}
+            <div class="productView-images-slick"{{#gt product.images.length 0}} data-slick='{
+                    "infinite": true,
+                    "arrows": false,
+                    "speed": 300,
+                    "dots": true,
+                    "mobileFirst": true,
+                    "slidesToShow": 1,
+                    "slidesToScroll": 1,
+                    "vertical": false,
+                    "prev": "",
+                    "next": ""
+                }'{{/gt}}>
+                {{#each product.images}}
+                    <div class="productView-img-container-c">
+                        <img class="lazyload medium-zoom-image"
+                            data-sizes="auto"
+                            src="{{cdn 'img/loading.svg'}}"
+                            data-src="{{getImage this 'product_size' (cdn theme_settings.default_image_product)}}"
+                            data-zoom-target="{{getImage this 'product_size' (cdn theme_settings.default_image_product)}}"
+                            alt="{{product.main_image.alt}}" title="{{product.main_image.alt}}">
+                    </div>
+                {{/each}}
+            </div>
+            {{/gt}}
+        </div>
+        <div class="sku-price-m">
+            {{#if product.call_for_price}}
+            <p class="productView-price">
+                <span>{{product.call_for_price}}</span>
+            </p>
+            {{/if}}
+            <div class="productView-price">
+                {{#or customer (if theme_settings.restrict_to_login '!==' true)}}
+                    {{> components/products/price price=product.price schema_org=schema}}
+                {{else}}
+                    {{> components/common/login-for-pricing}}
+                {{/or}}
+            </div>
+        </div>
+    </section>
+
+    <section class="productView-details">
+        
+        {{{region name="product_above_options"}}}
+        <div class="productView-options {{#if settings.show_wishlist}}has-wishlist{{/if}}">
+            {{#if product.release_date }}
+                <p>{{product.release_date}}</p>
+            {{/if}}
+            <form class="form {{#if theme_settings.enable_circular_swatches}}swatches--round{{/if}}" method="post" action="{{product.cart_url}}" enctype="multipart/form-data"
+                  data-cart-item-add>
+                <input type="hidden" name="action" value="add">
+                <input type="hidden" name="product_id" value="{{product.id}}"/>
+                {{#each product.customizations}}
+                    {{{dynamicComponent 'components/products/customizations'}}}
+                {{/each}}
+                <div data-product-option-change style="display:none;">
+                    {{#each product.options}}
+                        {{{dynamicComponent 'components/products/options'}}}
+                    {{/each}}
+                </div>
+                {{#if product.event_date}}
+                    {{> components/products/event-date}}
+                {{/if}}
+                {{#if product.can_purchase}}
+                    {{> components/products/add-to-cart}}
+                {{/if}}
+                {{#if product.out_of_stock}}
+                    {{#if product.out_of_stock_message}}
+                        {{> components/common/alert-error product.out_of_stock_message}}
+                    {{else}}
+                        {{> components/common/alert-error (lang 'products.sold_out')}}
+                    {{/if}}
+                {{/if}}
+            </form>
+            {{#if settings.show_wishlist}}
+                {{> components/common/wishlist-dropdown}}
+            {{/if}}
+            {{{region name="product_below_add_to_cart"}}}
+            {{#if product.availability}}<div class="productView-availability"><i class="icon" aria-hidden="true"><svg><use xlink:href="#icon-delivery-van" /></svg></i> {{product.availability}}</div>{{/if}}
+            {{{region name="product_below_availability"}}}
+
+            {{#or product.min_purchase_quantity product.max_purchase_quantity product.gift_wrapping_available product.shipping}}
+                <dl class="productView-info">
+                    {{#if product.min_purchase_quantity}}
+                        <dt class="productView-info-name">{{lang 'products.min_purchase_quantity'}}</dt>
+                        <dd class="productView-info-value">{{lang 'products.purchase_units' quantity=product.min_purchase_quantity}}</dd>
+                    {{/if}}
+                    {{#if product.max_purchase_quantity}}
+                        <dt class="productView-info-name">{{lang 'products.max_purchase_quantity'}}</dt>
+                        <dd class="productView-info-value">{{lang 'products.purchase_units' quantity=product.max_purchase_quantity}}</dd>
+                    {{/if}}
+                    {{#if product.gift_wrapping_available}}
+                        <dt class="productView-info-name">{{lang 'products.gift_wrapping'}}</dt>
+                        <dd class="productView-info-value">{{lang 'products.gift_wrapping_available'}}</dd>
+                    {{/if}}
+                    {{#if product.shipping}}
+                        {{#if product.shipping.calculated}}
+                            <dt class="productView-info-name">{{lang 'products.shipping'}}</dt>
+                            <dd class="productView-info-value">{{lang 'products.shipping_calculated'}}</dd>
+                        {{else}}
+                            {{#if product.shipping.price.value '===' 0}}
+                                <dt class="productView-info-name">{{lang 'products.shipping'}}</dt>
+                                <dd class="productView-info-value">{{lang 'products.shipping_free'}}</dd>
+                            {{else}}
+                                <dt class="productView-info-name">{{lang 'products.shipping'}}</dt>
+                                <dd class="productView-info-value">{{lang 'products.shipping_fixed' amount=product.shipping.price.formatted}}</dd>
+                            {{/if}}
+                        {{/if}}
+                    {{/if}}
+                </dl>
+            {{/or}}
+            {{{region name="product_below_info"}}}
+        </div>
+        {{#if theme_settings.show_product_description_below}}
+            <div class="productView-scrollToDescription" id="description">
+                <a href="#description{{#if is_ajax}}_{{product.id}}{{/if}}">{{lang 'products.product_details'}} <span class="icon"><svg><use xlink:href="#icon-arrow-down"></use></svg></span></a>
+            </div>
+        {{/if}}
+    </section>
+
+    <article class="productView-description {{#if theme_settings.show_product_description_below}}description-split{{/if}}"{{#if schema}} itemprop="description"{{/if}}>
+        {{#if theme_settings.show_product_details_tabs}}
+            {{#if theme_settings.conversion_optimization_mode}}
+                {{> components/products/description settings=../settings}}
+            {{else}}
+                {{> components/products/description-tabs settings=../settings}}
+            {{/if}}
+        {{else}}
+            {{> components/products/description settings=../settings}}
+        {{/if}}
+        <div{{#unless is_ajax}}{{> components/f/animations/aos once=true}}{{/unless}}>
+            {{#or product.sku product.condition product.custom_fields}}
+                <h3 class="productView-title">{{lang 'products.additional_details'}}</h3>
+            {{/or}}
+            {{{region name="product_below_additional_details_title"}}}
+            <dl class="productView-info">
+                {{#if product.sku}}
+                    <dt class="productView-info-name">{{lang 'products.sku'}}</dt>
+                    <dd class="productView-info-value" data-product-sku>{{product.sku}}</dd>
+                {{/if}}
+                    <dt class="productView-info-name"{{#unless theme_settings.show_upc_on_product}} style="display: none;"{{/unless}}>{{lang 'products.upc'}}</dt>
+                    <dd class="productView-info-value"{{#unless theme_settings.show_upc_on_product}} style="display: none;"{{/unless}} data-product-upc>{{product.upc}}</dd>
+                {{#if product.condition}}
+                    <dt class="productView-info-name">{{lang 'products.condition'}}</dt>
+                    <dd class="productView-info-value">{{product.condition}}</dd>
+                {{/if}}
+                {{#all product.weight theme_settings.show_product_weight}}
+                    <dt class="productView-info-name">{{lang 'products.weight'}}</dt>
+                    <dd class="productView-info-value" data-product-weight>{{product.weight}}</dd>
+                {{/all}}
+                {{#all product.width product.height product.depth theme_settings.show_product_dimensions}}
+                    <dt class="productView-info-name">{{lang 'products.width'}}</dt>
+                    <dd class="productView-info-value" data-product-width>
+                        {{product.width}}
+                        {{#if settings.measurements.length '==' 'Centimeters'}}
+                        ({{lang 'products.measurement.metric'}})
+                        {{else}}
+                        ({{lang 'products.measurement.imperial'}})
+                        {{/if}}
+                    </dd>
+                    <dt class="productView-info-name">{{lang 'products.height'}}</dt>
+                    <dd class="productView-info-value" data-product-height>
+                        {{product.height}}
+                        {{#if settings.measurements.length '==' 'Centimeters'}}
+                        ({{lang 'products.measurement.metric'}})
+                        {{else}}
+                        ({{lang 'products.measurement.imperial'}})
+                        {{/if}}
+                    </dd>
+                    <dt class="productView-info-name">{{lang 'products.depth'}}</dt>
+                    <dd class="productView-info-value" data-product-depth>
+                        {{product.depth}}
+                        {{#if settings.measurements.length '==' 'Centimeters'}}
+                        ({{lang 'products.measurement.metric'}})
+                        {{else}}
+                        ({{lang 'products.measurement.imperial'}})
+                        {{/if}}
+                    </dd>
+                {{/all}}
+
+                {{#each product.custom_fields}}
+                    {{#or (if name '===' 'Blog Post Description') (if name '===' 'Promotion Label') (if name '===' 'GridTag') (if name '===' 'Related Content')}}
+                    {{else}}
+                    <dt class="productView-info-name">{{name}}:</dt>
+                    <dd class="productView-info-value">{{{sanitize value}}}</dd>
+                    {{/or}}
+                {{/each}}
+            </dl>
+            {{{region name="product_below_additional_details"}}}
+        </div>
+        {{#unless theme_settings.conversion_optimization_mode}}
+            {{> components/common/share url=product.url}}
+        {{/unless}}
+        {{{region name="product_below_sharing"}}}
+        {{{snippet 'product_details'}}}
+    </article>
+</div>
+
+<div id="previewModal" class="modal modal--large" data-reveal>
+    <a href="#" class="modal-close" aria-label="{{lang 'common.close'}}" role="button">
+        <span aria-hidden="true">&#215;</span>
+    </a>
+    <div class="modal-content"></div>
+    <div class="loadingOverlay"></div>
+</div>
+<div class="max-layer">
+    <a class="modal-close max-layer-close" aria-label="{{lang 'common.close'}}" role="button">
+        <span aria-hidden="true">&#215;</span>
+    </a>
+    <div class="max-layer-box">
+        <div class="productView-img-container-box drap-wrapper">
+            <div class="productView-images-box" data-slick='{
+                        "infinite": true,
+                        "arrows": false,
+                        "speed": 300,
+                        "dots": false,
+                        "mobileFirst": true,
+                        "slidesToShow": 1,
+                        "slidesToScroll": 1,
+                        "vertical": false,
+                        "prev": "",
+                        "next": ""
+                    }'>
+                {{#each product.images}}
+                    <img class="lazyload"
+                     data-sizes="auto"
+                     src="{{cdn 'img/loading.svg'}}"
+                     data-src="{{getImage this 'product_size' (cdn theme_settings.default_image_product)}}"
+                     alt="{{product.main_image.alt}}" title="{{product.main_image.alt}}">
+                {{/each}}
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .productView-image-pc .slick-vertical .slick-next, .slick-vertical .slick-prev {
+         left: 41%;
+    }
+    .productView-image-m .productView-img-container-c {
+        display: none;
+    }
+    .productView-image-m .productView-img-container-c:first-child {
+        display: block;
+    }
+    .productView-image-m .productView-img-container-c.slick-slide {
+        display: block;
+    }
+    .productView-image-m .slick-dots li button, .productView-image-m .slick-dots li button::before {
+        border: 1px solid #ccc;
+        width: 0.66rem;
+        height: 0.66rem;
+    }
+    .productView-image-m {
+        display: none;
+    }
+    .max-layer {
+        display: none;
+        position: fixed;
+        left: 0px;
+        top: 0px;
+        width: 100%;
+        height: 100%;
+        background-color: #fff;
+        z-index: 9999;
+        overflow: auto;
+    }
+    .max-layer-close {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        font-size: 36px;
+        border-radius: 100%;
+        -webkit-border-radius: 100%;
+        background: #666;
+        color: #fff;
+        height: 40px;
+        width: 40px;
+        text-align: center;
+        line-height: 1;
+    }
+    .max-layer-box {
+        display: flex;
+        min-height: 100%;
+        align-items: center;
+    }
+    .max-layer-box .productView-img-container-box {
+        width: 100%;
+    }
+    .max-layer img {
+        width: 100%;
+    }
+    .sku-price-m {
+        display: none;
+    }
+    .productView-price .price  {
+        font-weight: bold;
+        color: #333;
+    }
+    .productView-price .price.price--non-sale  {
+        font-weight: normal;
+        color: #050505;
+    }
+    @media(max-width: 769px){
+        .productView-image-pc {
+            display: none;
+        }
+        .productView-image-m {
+            display: block;
+            margin-bottom: 0px !important;
+        }
+        .productView-image-m .slick-dots {
+            bottom: 0px;
+        }
+        .productView-image-m img {
+             width: 100%;
+        }
+        .productView-image-m .slick-dotted.slick-slider {
+             margin-bottom: 0px;
+        }
+        .sku-price-m {
+            display: block;
+            margin-top: 10px;
+        }
+        .pc-price-box .productView-price .price-section {
+            display: none !important;
+        }
+    }
+</style>
+<!-- Global site tag (gtag.js) - Google Ads: 730317963 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-730317963"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'AW-730317963');
+</script>
+<script>
+  gtag('event', 'view_item', {
+    'send_to': 'AW-730317963',
+    'value': '{{product.price.with_tax.value}}',
+    'items': [{
+      'id': '{{ product.id }}',
+      'google_business_vertical': 'retail'
+    }]
+  });
+    
+    document.addEventListener("DOMContentLoaded", function(){
+        //表单序列化
+        $.fn.serializeObject = function() {
+            var o = {};
+            var a = this.serializeArray();
+            $.each(a, function() {
+                if (o[this.name]) {
+                    if (!o[this.name].push) {
+                        o[this.name] = [o[this.name]];
+                    }
+                    o[this.name].push(this.value || '');
+                } else {
+                    o[this.name] = this.value || '';
+                }
+            });
+            return o;
+        };
+        //选择属性事件
+        $(".form-option").on("click", function(){
+          setTimeout(function(){
+              var form = $(".productView-details form[data-cart-item-add]");
+              var data = form.serializeObject();
+              var product_id = data.product_id
+              $.post("/remote/v1/product-attributes/" + product_id, data, function(res){
+                    if(res.data.image && res.data.image.data){
+                      var src =  res.data.image.data;
+                      src = src.replace('{:size}', '500x650');
+                      if($(".productView-img-container-sku").length == 0){
+                        $('.productView-image-m .productView-images-slick').slick('slickAdd','<div class="productView-img-container-c productView-img-container-sku">\
+                                <img class="lazyload medium-zoom-image" src="' + src +'"/>\
+                        </div>');
+                        $('.max-layer .productView-images-box').slick('slickAdd','<div class="productView-img-container-c productView-img-container-sku">\
+                                <img class="lazyload" src="' + src +'">\
+                        </div>');
+                      }
+                      $(".productView-img-container-sku img").attr('src', src);
+                      $(".productView-image-m .slick-dots li").last().click();
+                    }
+              });
+          }, 100);
+        });
+        //放大图片
+        $(document).on("click", ".productView-image-m .medium-zoom-image", function(){
+          window.location.href="#viewimg";
+          var src = $(this).attr('data-zoom-target');
+          $(".max-img").attr('src', src);
+          $(".max-layer").show();
+          var slide = $(".productView-image-m .productView-images-slick").slick('slickCurrentSlide');
+          $(".max-layer .productView-images-box").slick('unslick').slick({
+               slidesToShow: 1,
+               initialSlide: slide
+          });
+          $("html, body").css('overflow-y', 'hidden');
+        });
+        //关闭弹框
+        $(".max-layer-close").on("click", function(){
+          closeMaxLayer();
+          window.location.href="#";
+        });
+        //点击弹框空白关闭
+        $(".max-layer").on("click", function(e){
+          var ev = e || window.event;
+          var elem = $(e.target);
+          if(elem.is("max-layer-close") || elem.closest('.max-layer-close').length){
+             return true;
+          }
+          if(elem.is("img") || elem.closest('.productView-img-container-box').length){
+             return true;
+          }
+          closeMaxLayer();
+          window.location.href="#";
+        });
+        window.addEventListener("popstate", function(e) {
+            if($(".max-layer").is(":visible")){
+                closeMaxLayer();
+            }
+        }, false);
+        //关闭放大弹框
+        var closeMaxLayer = function(){
+            $(".max-layer").hide();
+            $("html, body").css('overflow-y', 'auto');
+            var newScale = 1;
+            $(".max-layer .drap-wrapper").attr('data-scale', newScale).css('transform',  'scale('+ newScale +')');
+        }
+        //缩放
+        var drapScale = function(){
+            var store = {
+                moveable: false
+            };
+            $(document).on("touchstart", ".drap-wrapper", function(e) {
+                 var block = $(this)[0];
+                 var touches = e.touches;
+                 var touche = touches[0];
+                 store.moveable = true;
+                 if(touches.length>=2){
+                   var events = touches[0];
+                   var events2 = touches[1];
+                    // 第一个触摸点的坐标
+                    store.pageX = events.pageX;
+                    store.pageY = events.pageY;
+                    store.moveable = true;
+                    if (events2) {
+                        store.pageX2 = events2.pageX;
+                        store.pageY2 = events2.pageY;
+                    }
+                    store.originScale = $(this).attr('data-scale') || 1;
+                 }
+            });
+            $(document).on("touchmove", ".drap-wrapper", function(e) {
+              if (!store.moveable) {
+                  return;
+              }
+               var block = $(this)[0];
+               var touches = e.touches;
+              // 双指移动
+               if (touches.length>=2) {
+                  var events = touches[0];
+                  var events2 = touches[1];
+                  // 第2个指头坐标在touchmove时候获取
+                  if (!store.pageX2) {
+                      store.pageX2 = events2.pageX;
+                  }
+                  if (!store.pageY2) {
+                      store.pageY2 = events2.pageY;
+                  }
+            
+                  // 获取坐标之间的举例
+                  var getDistance = function (start, stop) {
+                      return Math.hypot(stop.x - start.x, stop.y - start.y);
+                  };
+                  // 双指缩放比例计算
+                  var zoom = getDistance({
+                      x: events.pageX,
+                      y: events.pageY
+                  }, {
+                      x: events2.pageX,
+                      y: events2.pageY
+                  }) / 
+                  getDistance({
+                      x: store.pageX,
+                      y: store.pageY
+                  }, {
+                      x: store.pageX2,
+                      y: store.pageY2
+                  });
+                  // 应用在元素上的缩放比例
+                  var newScale = store.originScale * zoom;
+                  if(newScale < 0.8){
+                    newScale = 0.8;
+                  }
+                  if(newScale > 3){
+                     newScale = 3;
+                  }
+                  // 记住使用的缩放值
+                  $(this).css('transform',  'scale('+ newScale +')').attr('data-scale', newScale);
+              }
+            });
+            document.addEventListener('touchend', function () {
+                store.moveable = false;
+                delete store.pageX2;
+                delete store.pageY2;
+            });
+            document.addEventListener('touchcancel', function () {
+                store.moveable = false;
+                delete store.pageX2;
+                delete store.pageY2;
+            });
+        }
+        drapScale();
+    });
+</script>

@@ -1,0 +1,1 @@
+{"components/f/gradients/gradient":"{{#if theme_settings.enable_gradients}} gradient{{/if}}\n"}

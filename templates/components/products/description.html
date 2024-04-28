@@ -1,0 +1,20 @@
+<div{{#unless is_ajax}}{{> components/f/animations/aos once=true}}{{/unless}}>
+    <h3 id="description_{{product.id}}" class="productView-title">{{lang 'products.description'}}</h3>
+    {{{region name="product_below_description_title"}}}
+    <div class="productView-description" {{#if settings.data_tag_enabled}} data-event-type="product" {{/if}}>
+        {{{product.description}}}
+        {{{snippet 'product_description'}}}
+    </div>
+    {{{region name="product_below_description_body"}}}
+</div>
+
+{{#if product.warranty}}
+<div{{#unless is_ajax}}{{> components/f/animations/aos once=true}}{{/unless}}>
+    <h3 class="productView-title">{{#if theme_settings.rename_warranty_field}}{{sanitize theme_settings.rename_warranty_field}}{{else}}{{lang 'products.warranty'}}{{/if}}</h3>
+    {{{region name="product_below_warranty_title"}}}
+    <div class="productView-description productView-extra">
+        {{{product.warranty}}}
+    </div>
+    {{{region name="product_below_warranty"}}}
+</div>
+{{/if}}

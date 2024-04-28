@@ -1,0 +1,25 @@
+{{#if (length carousel.slides) '>=' 2}}
+<section class="heroStoryboard show--{{#if (length carousel.slides) '===' 2}}1{{else}}2{{/if}}" data-equalizer>
+    {{#each carousel.slides}}
+        {{#or (if @index '===' 1) (if @index '===' 2)}}
+        <div class="heroCarousel-slide slide--{{@index}} {{#if ../../theme_settings.homepage_stretch_carousel_images}}heroCarousel-slide--stretch{{/if}}"{{> components/f/animations/aos delay=(multiply (add @index 1) 50) theme_settings=../../theme_settings}} data-equalizer-watch>
+            <a href="{{url}}">
+                <img class="heroCarousel-image" src="{{image}}" alt="{{alt_text}}" title="{{alt_text}}"
+                {{#if image_width}}width="{{image_width}}"{{/if}} {{#if image_height}}height="{{image_height}}"{{/if}} />
+                {{#if heading}}
+                    {{> components/f/hero/carousel-content show_background=true theme_settings=../../../theme_settings}}
+                {{else}}
+                    {{#if text}}
+                        {{> components/f/hero/carousel-content show_background=true theme_settings=../../../../theme_settings}}
+                    {{else}}
+                        {{#if button_text}}
+                            {{> components/f/hero/carousel-content show_background=false theme_settings=../../../../../theme_settings}}
+                        {{/if}}
+                    {{/if}}
+                {{/if}}
+            </a>
+        </div>
+        {{/or}}
+    {{/each}}
+</section>
+{{/if}}

@@ -1,0 +1,54 @@
+<section class="productCarousel"
+    data-list-name="{{list}}"
+    data-slick='{
+        "arrows": true,
+        "autoplay": true,
+        "autoplaySpeed": 5000,
+        {{#unless hide_dots}}"dots": true,{{/unless}}
+        "infinite": true,
+        "mobileFirst": true,
+        "slidesToShow": 2,
+        "slidesToScroll": 2,
+        "responsive": [
+            {
+                "breakpoint": 1600,
+                "settings": {
+                    "arrows": false,
+                    "slidesToScroll": {{ columns }},
+                    "slidesToShow": {{ columns }}
+                }
+            },
+            {
+                "breakpoint": 1260,
+                "settings": {
+                    "arrows": false,
+                    "slidesToScroll": 4,
+                    "slidesToShow": 4
+                }
+            },
+            {
+                "breakpoint": 767,
+                "settings": {
+                    "arrows": false,
+                    "slidesToScroll": 3,
+                    "slidesToShow": 3
+                }
+            },
+            {
+                "breakpoint": 550,
+                "settings": {
+                    "arrows": false,
+                    "slidesToScroll": 2,
+                    "slidesToShow": 2
+                }
+            }
+        ]
+    }'
+    {{#if alt}}data-equalizer-watch{{/if}}
+>
+    {{#each products}}
+    <div class="productCarousel-slide">
+        {{> components/products/card settings=../settings theme_settings=../theme_settings customer=../customer show_wishlist=../show_wishlist  show_rating=../show_rating alt=../alt event="list" position=(add @index 1)}}
+    </div>
+    {{/each}}
+</section>

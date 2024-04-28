@@ -1,0 +1,90 @@
+.newsletterPopup-overlay {
+    background-color: rgba(stencilColor("overlay-backgroundColor"), 0.9);
+    bottom: 0;
+    display: none;
+    height: 100%;
+    left: 0;
+    margin: 0;
+    opacity: 0;
+    position: fixed;
+    right: 0;
+    top: 0;
+    transition: all 250ms ease-out;
+    width: 100%;
+    z-index: zIndex("highest");
+
+    &.is-visible {
+        display: block;
+        opacity: 1;
+    }
+}
+
+.newsletterPopup {
+    background: stencilColor("newsletter_popup_backgroundColor");
+    left: 50%;
+    margin: auto;
+    max-height: 90%;
+    max-width: 95%;
+    overflow-y: auto;
+    padding: spacing("base");
+    position: fixed;
+    text-align: center;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+
+    @include breakpoint("medium") {
+        min-width: 460px;
+        width: auto;
+    }
+
+    .form {
+        @include breakpoint("large") {
+            margin-left: auto;
+            margin-right: auto;
+            max-width: 80%;
+        }
+    }
+
+    .form-field {
+        margin: 0;
+    }
+
+    .modal-close {
+        background-color: stencilColor("newsletter_popup_backgroundColor");
+        color: stencilColor("newsletter_popup_close_color");
+        right: spacing("quarter");
+        top: spacing("quarter");
+    }
+
+    .newsletterPopup-dismiss--text {
+        color: stencilColor("newsletter_popup_text_color");
+        display: inline-block;
+        font-size: fontSize("tiny");
+        margin-bottom: spacing("half");
+        text-transform: uppercase;
+    }
+
+    .newsletter-summary {
+        color: rgba(stencilColor("newsletter_popup_text_color"), 0.75);
+        font-size: fontSize("tiny");
+        margin-top: spacing("half");
+    }
+}
+
+.newsletterPopup-title {
+    color: stencilColor("newsletter_popup_text_color");
+
+    &:after {
+        border-bottom: remCalc(2) solid stencilColor("newsletter_popup_text_color");
+        content: "";
+        display: block;
+        margin: 1.5rem auto;
+        max-width: 70%;
+        width: 6rem;
+    }
+}
+
+.newsletterPopup-intro {
+    color: stencilColor("newsletter_popup_text_color");
+}

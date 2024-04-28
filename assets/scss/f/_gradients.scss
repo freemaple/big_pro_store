@@ -1,0 +1,168 @@
+.gradient {
+    .heroCarousel-content {
+        background: linear-gradient(45deg, rgba(stencilColor("gradient_start"), 0.75), rgba(stencilColor("gradient_finish"), 0.75));
+
+        .heroCarousel-title,
+        .heroCarousel-title:after,
+        .heroCarousel-description,
+        .heroCarousel-action {
+            color: stencilColor("gradient_text");
+        }
+    }
+
+    .banners {
+        background: linear-gradient(45deg, stencilColor("gradient_start"), stencilColor("gradient_finish"));
+        color: stencilColor("gradient_text");
+    }
+
+    .coverImageOverlay {
+        background: linear-gradient(45deg, rgba(stencilColor("gradient_start"), 0.75), rgba(stencilColor("gradient_finish"), 0.75));
+        margin-bottom: spacing("single");
+        padding: spacing("half");
+
+        @include breakpoint("medium") {
+            margin: auto;
+            padding: spacing("single");
+        }
+
+        .page-heading,
+        .blog-date {
+            color: stencilColor("gradient_text");
+        }
+
+        .page-heading span:after {
+            border-color: stencilColor("gradient_text");
+        }
+    }
+
+    .navUser.sticky.fixed {
+        .navUser-action {
+            color: stencilColor("gradient_text");
+
+            &:hover {
+                color: rgba(stencilColor("gradient_text"), 0.8);
+            }
+
+            &:focus,
+            &:active {
+                color: rgba(stencilColor("gradient_text"), 0.9);
+            }
+        }
+
+        svg {
+            fill: stencilColor("gradient_text");
+            stroke: stencilColor("gradient_text");
+
+            &:hover {
+                fill: rgba(stencilColor("gradient_text"), 0.8);
+                stroke: rgba(stencilColor("gradient_text"), 0.8);
+            }
+
+            &:focus,
+            &:active {
+                fill: rgba(stencilColor("gradient_text"), 0.9);
+                stroke: rgba(stencilColor("gradient_text"), 0.9);
+            }
+        }
+
+        .countPill {
+            color: stencilColor("gradient_finish");
+            background-color: stencilColor("gradient_text");
+        }
+    }
+
+    .header-logo.sticky.fixed .header-logo-text {
+        color: stencilColor("gradient_text");
+    }
+
+    .header > .navPages-container {
+        @include breakpoint("medium") {
+            background: linear-gradient(45deg, stencilColor("gradient_start"), stencilColor("gradient_finish"));
+
+            .navPages-list > .navPages-item > .navPages-action,
+            &.sticky.fixed .navPages-list > .navPages-item > .navPages-action {
+                color: stencilColor("gradient_text");
+
+                &:hover {
+                    color: rgba(stencilColor("gradient_text"), 0.8);
+                }
+
+                &:focus,
+                &:active {
+                    color: rgba(stencilColor("gradient_text"), 0.9);
+                }
+
+                svg {
+                    fill: stencilColor("gradient_text");
+                    stroke: stencilColor("gradient_text");
+
+                    &:hover {
+                        fill: rgba(stencilColor("gradient_text"), 0.8);
+                        stroke: rgba(stencilColor("gradient_text"), 0.8);
+                    }
+
+                    &:focus,
+                    &:active {
+                        fill: rgba(stencilColor("gradient_text"), 0.9);
+                        stroke: rgba(stencilColor("gradient_text"), 0.9);
+                    }
+                }
+
+                &.is-open {
+                    color: stencilColor("navPages-subMenu-color-hover");
+
+                    // scss-lint:disable NestingDepth
+                    svg {
+                        fill: stencilColor("navPages-subMenu-color-hover");
+                        stroke: stencilColor("navPages-subMenu-color-hover");
+                    }
+
+
+                    &:hover {
+                        color: stencilColor("navPages-subMenu-color-hover");
+
+                        // scss-lint:disable NestingDepth
+                        svg {
+                            fill: stencilColor("navPages-subMenu-color-hover");
+                            stroke: stencilColor("navPages-subMenu-color-hover");
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .button {
+        background: transparent;
+        border-image: linear-gradient(45deg, stencilColor("gradient_start"), stencilColor("gradient_finish"));
+        border-image-slice: 1;
+
+        &.button--round {
+            background: rgba(stencilColor("body-bg"),0.9);
+            border: none;
+        }
+
+        &.button--square {
+            background: rgba(stencilColor("body-bg"),0.9);
+            border: none;
+        }
+    }
+
+    .swal2-modal .swal2-confirm.button,
+    .button--primary {
+        background: linear-gradient(45deg, stencilColor("gradient_start"), stencilColor("gradient_finish"));
+        border: transparent;
+        color: stencilColor("gradient_text");
+
+        &:hover {
+            background: linear-gradient(45deg, rgba(stencilColor("gradient_start"), 0.8), rgba(stencilColor("gradient_finish"), 0.8));
+        }
+
+        &:focus,
+        &:active {
+            background: linear-gradient(45deg, stencilColor("gradient_start"), stencilColor("gradient_finish"));
+        }
+    }
+
+
+}

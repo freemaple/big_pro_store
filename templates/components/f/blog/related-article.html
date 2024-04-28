@@ -1,0 +1,23 @@
+<article class="relatedContent-feature">
+    <div class="relatedContent-body"{{> components/f/animations/aos effect='fade-right' delay=150}}>
+        <header class="relatedContent-header">
+            <h2 class="page-heading"><span>{{lang 'products.related_content'}}</span></h2>
+            <p class="relatedContent-date">{{blog.post.date_published}}</p>
+            <h3 class="relatedContent-title">
+                <a href="{{blog.post.url}}">{{blog.post.title}}</a>
+            </h3>
+            <p class="relatedContent-content">{{ellipsis blog.post.body 50}}</p>
+            {{#if blog.post.author}}<p class="relatedContent-author">{{lang 'blog.posted_by' name=blog.post.author}}</p>{{/if}}
+        </header>
+        <a href="{{blog.post.url}}" class="relatedContent-link">Read More</a>
+    </div>
+    <div class="relatedContent-figure"{{> components/f/animations/aos effect='fade-left' delay=300}}>
+        {{#if blog.post.thumbnail}}
+            <figure class="relatedContent-thumbnail">
+                <a href="{{blog.post.url}}">
+                    <img class="lazyload" data-sizes="auto" src="{{cdn 'img/loading.svg'}}" data-src="{{getImage blog.post.thumbnail '800x600'}}" alt="{{blog.post.thumbnail.alt}}" title="{{blog.post.thumbnail.alt}}">
+                </a>
+            </figure>
+        {{/if}}
+    </div>
+</article>

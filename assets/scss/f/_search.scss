@@ -1,0 +1,106 @@
+.dropdown--quickSearch {
+    background-color: stencilColor("dropdown--quickSearch-backgroundColor");
+    border: container("border");
+    box-shadow: container("dropShadow");
+    position: absolute;
+
+    .form-input {
+        font-family: $secondary-font-family;
+        font-style: $secondary-font-style;
+    }
+
+    // scss-lint:disable NestingDepth
+    &.is-open {
+        left: auto!important;
+        width: 500px !important;
+
+        &:before {
+            @include css-triangle(
+                $triangle-direction: "bottom",
+                $triangle-size: 10px,
+                $triangle-color: stencilColor("navUser-dropdown-borderColor")
+            );
+            bottom: 100%;
+            right: spacing("half");
+            position: absolute;
+        }
+
+        &:after {
+            @include css-triangle(
+                $triangle-direction: "bottom",
+                $triangle-size: 8px,
+                $triangle-color: stencilColor("navUser-dropdown-backgroundColor")
+            );
+            bottom: 100%;
+            right: spacing("half") + remCalc(2px);
+            position: absolute;
+        }
+
+        .modal-close {
+            bottom: 0;
+            left: 100%;
+            margin: auto;
+            right: auto;
+            top: 0;
+        }
+    }
+}
+
+.resultsContainer {
+    margin-top: 1rem;
+    max-height: 500px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.quickSearchResults {
+    margin-top: 0;
+
+    .productGrid {
+        background-color: stencilColor("dropdown--quickSearch-backgroundColor");
+        margin: 0;
+        padding: 0;
+
+        .product {
+            width: 100%;
+
+            .card {
+                border: none;
+                border-bottom: container("border");
+                display: table;
+                margin: 0;
+                padding: 1rem 0;
+                width: 100%;
+            }
+        }
+    }
+
+    .card-body,
+    .card-figure {
+        display: table-cell;
+        vertical-align: middle;
+    }
+
+    .card-figure {
+        width: 25%;
+    }
+
+    .card-body {
+        background-color: stencilColor("dropdown--quickSearch-backgroundColor");
+        width: 75%;
+    }
+
+    .card--alternate:hover {
+        .card-body {
+            background-color: stencilColor("dropdown--quickSearch-backgroundColor");
+
+            .card-text {
+                color: inherit;
+            }
+        }
+
+        .card-title > a {
+            color: inherit;
+        }
+    }
+}

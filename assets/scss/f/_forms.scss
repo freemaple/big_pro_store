@@ -1,0 +1,141 @@
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+
+input[type='number'] {
+    -moz-appearance: textfield;
+}
+
+.form-label {
+    cursor: default;
+    font-family: $secondary-font-family;
+    font-style: $secondary-font-style;
+    font-weight: stencilFontWeight("secondary-font");
+
+    &.form-label--alternate,
+    &.cart-item-label,
+    .gift-certificate-form .form-radio + & {
+        font-family: $body-font-family;
+        font-style: normal;
+    }
+}
+
+.form-label--inlineSmall small.required-label,
+.form-label small {
+    color: stencilColor("color-error");
+    font-family: $body-font-family;
+    font-style: normal;
+}
+
+.form-prefixPostfix-button--postfix {
+    @include breakpoint("large") {
+        margin: 0;
+    }
+}
+
+.form-prefixPostfix .form-input,
+.form-prefixPostfix .button,
+.form-input,
+.form-select,
+.estimator-form-input .form-select {
+    height: 4rem;
+}
+
+.form-select,
+.estimator-form-input .form-select {
+    background-position-y: center;
+}
+
+.form-select--short {
+    max-width: 10rem;
+    padding-right: 0;
+}
+
+.footer .form-prefixPostfix .form-input {
+    background-color: stencilColor("footer-inputBackgroundColor");
+    border-color: stencilColor("footer-inputBorderColor");
+}
+
+.form-actions {
+    .button,
+    input,
+    a {
+        vertical-align: middle;
+    }
+}
+
+.form-increment {
+    .button {
+        height: auto;
+    }
+}
+
+.form-input--incrementTotal {
+    border: {
+        color: $input-border-color;
+        style: $input-border-style;
+        width: $input-border-width;
+    }
+    font-weight: fontWeight("normal");
+    height: auto;
+    max-width: 4rem;
+    padding: spacing("half");
+    width: auto;
+}
+
+.form-row .form-column .form-field {
+    padding: 0;
+
+    &.form-field-group {
+        padding: spacing("half");
+    }
+}
+
+.form-radio + .form-label {
+    &:before {
+        height: 16px;
+        width: 16px;
+    }
+
+    &:after {
+        top: 4px;
+    }
+}
+
+.form-minMaxRow {
+    @include breakpoint("medium") {
+        .form-field {
+            width: 50%;
+
+            + .form-field + .form-field {
+                margin-top: spacing("half");
+                width: 100%;
+            }
+        }
+    }
+}
+
+.actionBar-section .form-label {
+    color: stencilColor("input-font-color");
+}
+
+.form-select,
+.actionBar-section .form-select {
+    color: stencilColor("select-arrow-color");
+}
+
+.actionBar-section .form-select {
+    height: auto;
+}
+
+.form-field {
+    // scss-lint:disable SelectorDepth, NestingDepth
+    > .form-checkbox + .form-label,
+    > .form-radio + .form-label {
+        margin-left: 0;
+        min-height: 2rem;
+        padding-top: remCalc(2);
+        width: 100%;
+    }
+}

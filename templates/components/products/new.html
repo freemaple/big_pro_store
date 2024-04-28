@@ -1,0 +1,19 @@
+<section class="content {{#if theme_settings.alternative_card_panels}}alternativeProducts{{/if}}"{{#if theme_settings.alternative_card_panels}} data-equalizer{{/if}}>
+    <h2 class="page-heading"{{#if theme_settings.alternative_card_panels}} data-equalizer-watch{{/if}}><span{{> components/f/animations/aos}}>{{lang 'products.new' }}</span></h2>
+
+    {{#if carousel }}
+        {{#if settings.data_tag_enabled}}
+            {{> components/products/carousel settings=../settings products=products alt=theme_settings.alternative_card_panels show_wishlist=show_wishlist show_rating=show_rating hide_dots=true list="New Products"}}
+        {{else}}
+            {{> components/products/carousel products=products alt=theme_settings.alternative_card_panels show_wishlist=show_wishlist show_rating=show_rating hide_dots=true}}
+        {{/if}}
+    {{else}}
+    <ul class="productGrid productGrid--maxCol{{ columns }}" data-product-type="new_products"{{#if theme_settings.alternative_card_panels}} data-equalizer-watch{{/if}}>
+        {{#each products}}
+            <li class="product">
+                {{>components/products/card settings=../settings theme_settings=../theme_settings customer=../customer show_wishlist=../show_wishlist show_rating=../show_rating}}
+            </li>
+        {{/each}}
+    </ul>
+    {{/if}}
+</section>

@@ -1,0 +1,96 @@
+// =============================================================================
+// PRODUCT VIEW (CSS)
+// =============================================================================
+
+
+// Product view layout
+// -----------------------------------------------------------------------------
+
+.productView {
+    @include grid-row($behavior: "nest");
+    margin-left: -(spacing("base"));
+    margin-right: -(spacing("base"));
+
+    .modal & {
+        padding-bottom: 0;
+        padding-top: 0;
+    }
+}
+
+.productView--quickView {
+    .socialLinks-item--print {
+        display: none;
+    }
+}
+
+.productView-images {
+    @include grid-column(12);
+    padding-left: spacing("base");
+    padding-right: spacing("base");
+
+    @include breakpoint("medium") {
+        width: grid-calc(6, $total-columns);
+    }
+}
+
+.productView-details {
+    @include grid-column(12);
+    padding-left: spacing("base");
+    padding-right: spacing("base");
+
+    @include breakpoint("medium") {
+        clear: right;
+        float: right;
+        width: grid-calc(6, $total-columns);
+    }
+}
+
+.productView-description {
+    @include grid-column(12);
+    padding-left: spacing("base");
+    padding-right: spacing("base");
+
+    @include breakpoint("large") {
+        clear: right;
+        float: right;
+        width: grid-calc(6, $total-columns);
+    }
+
+    .productView-title {
+        border-bottom: container("border");
+        margin-bottom: spacing("base");
+        padding-left: spacing("base");
+        padding-right: spacing("base");
+    }
+
+    .productView-description {
+        @include breakpoint("medium") {
+            clear: both;
+            float: none;
+            width: 100%;
+        }
+    }
+}
+.productView-thumbnail-link {
+    height: 91px;
+    padding: 0px;
+    max-width: 70px;
+}
+.productView-images .slick-prev {
+    left: -42px;
+}
+.productView-images .slick-list {
+    margin-left: -7px;
+}
+.productView-thumbs {
+    margin-top: 1.5rem !important;
+}
+.productView-images {
+    margin-bottom: 2rem !important;
+    
+}
+@media(max-width: 361px){
+    .productView-thumb {
+       width: 5.65714rem !important;
+    }
+}

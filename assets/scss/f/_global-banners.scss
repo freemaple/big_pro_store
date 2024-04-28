@@ -1,0 +1,46 @@
+.globalBanner {
+    background-color: stencilColor("global_banner_backgroundColor");
+    color: stencilColor("global_banner_foregroundColor");
+    padding: spacing("base");
+    text-align: center;
+}
+
+.globalBanner-label {
+    display: inline-block;
+    font-family: $secondary-font-family;
+    font-size: fontSize("smallest");
+    font-style: $secondary-font-style;
+    outline: none;
+    padding: 0 spacing("base");
+
+    @include breakpoint("medium") {
+        font-size: fontSize("smaller");
+
+        + .globalBanner-label {
+            border-left: container("border");
+            border-color: rgba(stencilColor("global_banner_foregroundColor"), 0.5);
+
+            .slick-track & {
+                border: none;
+            }
+        }
+    }
+
+    a {
+        color: stencilColor("global_banner_foregroundColor");
+        text-decoration: none;
+
+        &:hover {
+            color: rgba(stencilColor("global_banner_foregroundColor"), 0.8);
+        }
+
+        &:focus,
+        &:active {
+            color: rgba(stencilColor("global_banner_foregroundColor"), 0.9);
+        }
+    }
+}
+
+.globalBanner-icon {
+    margin-right: remCalc(5);
+}

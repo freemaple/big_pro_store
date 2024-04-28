@@ -1,0 +1,26 @@
+// Homepage grid styles
+// -----------------------------------------------------------------------------
+
+
+// Social icons in footer
+// -----------------------------------------------------------------------------
+
+.footer .socialLinks .icon svg {
+    fill: stencilColor("footer-iconColor");
+
+    &:hover,
+    &:focus,
+    &:active {
+        fill: stencilColor("footer-iconColorHover");
+    }
+}
+
+// Override AddThis styling
+
+.addthis_toolbox a.at300b {
+    width: remCalc($socialLinks-iconSize)!important;
+
+    .google_plusone_iframe_widget {
+        display: none;
+    }
+}

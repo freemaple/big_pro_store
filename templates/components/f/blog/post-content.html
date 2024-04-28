@@ -1,0 +1,54 @@
+<article class="blog">
+
+    <div class="blog-post-figure">
+        {{#if post.thumbnail}}
+            <figure class="blog-cover-image">
+                <img class="lazyload" data-sizes="auto" src="{{cdn 'img/loading.svg'}}" data-src="{{getImage post.thumbnail 'blog_size'}}" alt="{{post.thumbnail.alt}}" title="{{post.thumbnail.alt}}">
+            </figure>
+        {{/if}}
+        <header class="blog-header {{#if post.thumbnail}}coverImageOverlay{{/if}}">
+            <h1 class="page-heading">
+                <span>{{post.title}}</span>
+            </h1>
+            <p class="blog-date">{{#if post.author}}{{lang 'blog.posted_by' name=post.author}} on {{/if}}{{post.date_published}}</p>
+        </header>
+    </div>
+
+    <div class="blog-post-body">
+        <div class="blog-post">
+            {{{region name="blog_above_content"}}}
+            {{{post.body}}}
+            {{{region name="blog_below_content"}}}
+        </div>
+
+
+        {{#if show_tags}}
+            {{#if post.tags}}
+                <ul class="tags">
+                    {{#each post.tags}}
+                    {{#startsWith "RP:" name}}
+                        {{#if ../../theme_settings.enable_editorial_mode}}
+                            {{inject "relatedProduct" name}}
+                        {{/if}}
+                    {{else}}
+                        <li class="tag">
+                            <a href="{{url}}">#{{name}}</a>
+                        </li>
+                    {{/startsWith}}
+                    {{/each}}
+                </ul>
+            {{/if}}
+        {{/if}}
+
+        {{#if theme_settings.enable_editorial_mode}}
+        {{{region name="blog_above_related_products"}}}
+        <div class="relatedProducts">
+            <h2 class="page-heading"><span>{{lang 'blog.related_products'}}</span></h2>
+        </div>
+        {{{region name="blog_below_related_products"}}}
+        {{/if}}
+
+        {{>components/common/share url=post.url}}
+        {{{region name="blog_below_share"}}}
+    </div>
+</article>

@@ -1,0 +1,103 @@
+.cart-total .form-input {
+    height: 4rem;
+}
+
+[data-cart-content] {
+    @include breakpoint("large") {
+        float: left;
+        width: 70%;
+    }
+}
+
+.static-sidebar {
+    @include breakpoint("large") {
+        float: right;
+        width: 25%;
+    }
+}
+
+.cart-totals {
+    @include breakpoint("medium") {
+        width: 40%;
+    }
+
+    @include breakpoint("large") {
+        width: 100%;
+    }
+}
+
+.coupon-code-cancel, .shipping-estimate-hide {
+    font-style: normal;
+}
+
+.cart-total + .cart-total {
+    border-top: container("border");
+}
+
+.cart-total-label, .cart-total-value {
+    padding: spacing("base") 0;
+}
+
+.cart-total-label {
+    text-align: left;
+    text-transform: uppercase;
+}
+
+.cart-total-value {
+    text-align: right;
+    width: 66.66666%;
+
+    @include breakpoint("small") {
+        width: 50%;
+    }
+}
+
+.cart-header-item {
+    text-transform: uppercase;
+}
+
+.cart-item-info {
+    text-transform: uppercase;
+}
+
+.cart-item-info + .cart-item-info {
+    @include breakpoint("small") {
+        margin-top: 0;
+    }
+}
+
+.cart-item-brand {
+    font-family: $secondary-font-family;
+    font-style: $secondary-font-style;
+}
+
+.cart-actions .footer-payment-icons {
+    color: rgba($small-font-color, 0.85);
+    font-size: 1.3rem;
+    margin-top: spacing("single");
+    text-align: center;
+
+    @include breakpoint("small") {
+        margin-top: spacing("half");
+        text-align: right;
+    }
+}
+
+.coupon-form .form-input,
+.cart-gift-certificate-form .form-input {
+    width: 80%;
+}
+
+.coupon-form .button,
+.cart-gift-certificate-form .button {
+    margin: 0
+}
+
+.cart-additionalCheckoutButtons > div {
+    margin-top: spacing("half");
+    clear: both;
+}
+
+.cart-additionalCheckoutButtons .apple-pay-checkout-button {
+    margin-bottom: spacing("half");
+}

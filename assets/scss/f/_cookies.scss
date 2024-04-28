@@ -1,0 +1,39 @@
+.cookieMessage {
+    bottom: 0;
+    position: fixed;
+    width: 100%;
+    z-index: zIndex("highest");
+
+    .button {
+        margin: 0;
+
+        @include breakpoint("medium") {
+            display: table-cell;
+            width: 100%;
+        }
+    }
+}
+
+.cookieMessage-container {
+    padding: spacing("single");
+
+    @include breakpoint("medium") {
+        display: table;
+    }
+}
+
+.cookieMessage-text {
+    @include breakpoint("medium") {
+        display: table-cell;
+    }
+
+    p {
+        font-size: fontSize("smallest");
+        margin: 0 0 spacing("single");
+        text-align: center;
+
+        @include breakpoint("medium") {
+            margin: 0 spacing(half);
+        }
+    }
+}

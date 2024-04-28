@@ -1,0 +1,141 @@
+---
+product:
+    videos:
+        limit: {{theme_settings.productpage_videos_count}}
+    reviews:
+        limit: {{theme_settings.productpage_reviews_count}}
+    related_products:
+        limit: {{theme_settings.productpage_related_products_count}}
+    similar_by_views:
+        limit: {{theme_settings.productpage_similar_by_views_count}}
+---
+{{inject "enableSwatches" theme_settings.show_swatches_on_grid}}
+{{inject "enableSizes" theme_settings.show_sizes_on_grid}}
+{{inject "enableImageHoverSwitcher" theme_settings.enable_image_hover_switcher}}
+{{inject "enableSelectedOptionLabel" theme_settings.show_selected_option_on_label}}
+{{inject "addToCartMode" theme_settings.add_to_cart_mode}}
+{{#partial "page"}}
+    {{> components/common/breadcrumbs breadcrumbs=breadcrumbs}}
+
+    {{#each product.shipping_messages}}
+        {{> components/common/alert-info message}}
+    {{/each}}
+
+    <div itemscope itemtype="http://schema.org/Product">
+        {{> components/products/product-view settings=../settings schema=true}}
+        {{{region name="product_below_product_view"}}}
+
+        {{#if product.videos.list.length}}
+            {{> components/products/videos product.videos}}
+        {{/if}}
+        {{{region name="product_below_videos"}}}
+
+        {{#if theme_settings.enable_editorial_mode}}
+            {{> components/f/products/related-article}}
+        {{/if}}
+        {{{region name="product_below_related_articles"}}}
+
+        {{#all settings.show_product_reviews product.reviews.total}}
+            {{> components/products/reviews reviews=product.reviews product=product urls=urls}}
+        {{/all}}
+        {{{region name="product_below_reviews"}}}
+
+        {{#if theme_settings.show_product_details_tabs}}
+            {{#if theme_settings.conversion_optimization_mode}}
+                {{> components/products/upsell}}
+            {{else}}
+                {{> components/products/tabs}}
+            {{/if}}
+        {{else}}
+            {{> components/products/upsell}}
+        {{/if}}
+        {{{region name="product_below_upsell"}}}
+
+    </div>
+    
+    <style>
+        .form-option-variant {
+            font-size: 1.2rem !important;
+            padding: 1px 1.34rem;
+        }
+        .productView-options .form-label{
+            font-weight: bold;
+        }
+    </style>
+    <style>
+    .description_box {
+        margin-bottom: 20px;
+    }
+    .description_header {
+    	position: relative;
+    	padding: 15px 5px 15px 5px;
+    	border-top: 1px solid #e2e2e2;
+    	border-bottom: 1px solid #e2e2e2;
+    }
+    .description_header .ic {
+    	position: absolute;
+    	right: 10px;
+    	top: 2px;
+    	color: #333;
+    	font-size: 30px;
+    }
+    .description_box .description_content {
+        padding-top: 15px;
+        /*display: none;*/
+    }
+    .description_box:first-child .description_content {
+       display: block;
+    }
+    .productView-description .productView-description {
+       border-bottom: none;
+    }
+    .productView-upsell {
+         margin-bottom: 1rem;
+    }
+    .productView-upsell .productGrid[data-product-type]{
+        margin-bottom: 0px;
+    }
+    .productView-upsell .productGrid[data-product-type] .product .card {
+        margin-bottom: 0px;
+    }
+    .body {
+        margin-bottom: 3rem;
+    }
+    .productView-image-m.productView-images .slick-list {
+        margin-left: 0px;
+    }
+    </style>
+    <script type="text/javascript">
+        if(document.addEventListener){
+            function DOMContentLoaded(){
+                productDesHandel();
+            }
+            document.addEventListener( "DOMContentLoaded", DOMContentLoaded, false );
+        } else {
+            window.onload = function(){
+                productDesHandel();
+            }
+        }
+        function productDesHandel(){
+             $(".description_box").each(function(key, item){
+                if(key != 0){
+                    var description_content = $(this).find('.description_content');
+                    description_content.hide();
+        		    $(this).find('.ic').text('+');
+                }
+            });
+            $(".description_header").on("click", function(){
+        		var description_content = $(this).parent().find('.description_content');
+        		if(description_content.is(":visible")){
+        			description_content.hide();
+        			$(this).find('.ic').text('+');
+        		} else {
+        			description_content.show();
+        			$(this).find('.ic').text('-');
+        		}
+    	    })
+        }
+    </script>
+
+{{/partial}}
+{{> layout/base}}

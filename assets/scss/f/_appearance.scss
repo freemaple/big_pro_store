@@ -1,0 +1,60 @@
+body {
+    line-height: 1.8;
+}
+
+h1, h2, h3, h4, h5, h6,
+.facet-quick-heading {
+    // font-weight: fontWeight("normal");
+    text-transform: uppercase;
+}
+
+blockquote {
+    border-left: remCalc(2) solid $header-font-color;
+    font-family: $secondary-font-family;
+    font-style: $secondary-font-style;
+    font-weight: stencilFontWeight("secondary-font");
+    margin-bottom: spacing("single");
+    margin-left: spacing("single");
+    padding: spacing("single");
+}
+
+.cms-content {
+    ul,
+    ol {
+        background: rgba(stencilColor("color-textBase"),0.05);
+        margin-left: auto;
+        margin-right: auto;
+        padding: spacing("single") spacing("double");
+        width: 80%;
+
+        @include breakpoint("large") {
+            width: 50%;
+        }
+    }
+}
+
+.button,
+.form-input,
+.actionBar-section .form-field,
+.form-select,
+.form-checkbox + .form-label::before,
+.pagination-item.pagination-item--current,
+.facetedSearch-toggle {
+    border-radius: 0;
+}
+
+.button {
+    text-transform: uppercase;
+}
+
+.table--line .table-thead tr th {
+    text-transform: uppercase;
+}
+
+.definitionList-label,
+.definitionList-key,
+.secondary-style {
+    font-family: $secondary-font-family;
+    font-style: $secondary-font-style;
+    font-weight: stencilFontWeight("secondary-font");
+}

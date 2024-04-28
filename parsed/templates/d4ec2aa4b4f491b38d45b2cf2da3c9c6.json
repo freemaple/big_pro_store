@@ -1,0 +1,1 @@
+{"components/f/tags/custom-tag":"<span class=\"storeTag customTag\">{{sanitize this.value}}</span>\n"}

@@ -1,0 +1,37 @@
+.footer-payment-icons {
+    align-items: center;
+    display: flex;
+    flex-flow: row wrap;
+    font-size: 2rem;
+    height: auto;
+    justify-content: center;
+
+    @include breakpoint("small") {
+        justify-content: flex-start;
+    }
+
+    span {
+        height: remCalc(40);
+        margin: auto spacing("quarter");
+        position: relative;
+        width: remCalc(55);
+
+        &:first-child {
+            margin-left: 0;
+        }
+
+        &:last-child {
+            margin-right: 0;
+        }
+
+        &.payment-icon-square {
+            margin-left: -(spacing("quarter"));
+            margin-right: -(spacing("quarter"));
+        }
+    }
+
+    svg {
+        height: 100%;
+        width: 100%;
+    }
+}

@@ -1,0 +1,47 @@
+.actionBar-section {
+    @include breakpoint("small") {
+        float: right;
+    }
+
+    .form-field {
+        text-align: center;
+    }
+}
+
+.accordion--navList {
+    .accordion-title {
+        font-weight: stencilFontWeight("headings-font");
+        text-transform: uppercase;
+    }
+}
+
+.sidebarBlock-heading {
+    text-transform: uppercase;
+}
+
+.productCount {
+    margin-bottom: 1rem;
+    text-align: center;
+
+    @include breakpoint("small") {
+        float: left;
+        margin: 0;
+        text-align: left;
+    }
+}
+
+.category-noProducts {
+    text-align: center;
+}
+
+.subCategory-grid {
+    &.grid-center {
+        text-align: center;
+    }
+
+    @include breakpoint("medium") {
+        .gridColumn {
+            margin-bottom: spacing("half");
+        }
+    }
+}

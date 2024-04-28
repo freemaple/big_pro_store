@@ -1,0 +1,120 @@
+---
+category:
+    shop_by_price: true
+    products:
+        limit: {{theme_settings.categorypage_products_per_page}}
+---
+{{inject "categoryProductsPerPage" theme_settings.categorypage_products_per_page}}
+{{inject "enableSwatches" theme_settings.show_swatches_on_grid}}
+{{inject "enableSizes" theme_settings.show_sizes_on_grid}}
+{{inject "enableImageHoverSwitcher" theme_settings.enable_image_hover_switcher}}
+{{inject "productCount" category.count}}
+{{inject "productTotal" category.total_products}}
+{{inject "enableInfiniteScrolling" theme_settings.enable_infinite_scrolling}}
+{{#partial "head"}}
+    {{#if pagination.category.previous}}
+        <link rel="prev" href="{{pagination.category.previous}}">
+    {{/if}}
+    {{#if pagination.category.next}}
+        <link rel="next" href="{{pagination.category.next}}">
+    {{/if}}
+{{/partial}}
+
+{{#partial "page"}}
+
+{{> components/common/breadcrumbs breadcrumbs=breadcrumbs}}
+{{#unless theme_settings.hide_category_image_on_categories}}
+    {{#if category.image}}
+        <img class="lazyload" data-sizes="auto" src="{{cdn 'img/loading.svg'}}" data-src="{{getImage category.image 'zoom_size'}}">
+    {{/if}}
+{{/unless}}
+<h1 class="page-heading">{{category.name}}</h1>
+{{{region name="below_category_header"}}}
+{{#if category.description}}
+    <div class="category-description">{{{category.description}}}</div>
+{{/if}}
+{{{region name="below_category_description"}}}
+{{{snippet 'categories'}}}
+<div class="page">
+    <!-- {{#if category.subcategories}}
+        {{#if theme_settings.show_subcategories_as_grid}}
+            {{#if category.products}}
+                <aside class="page-sidebar" id="faceted-search-container">
+                    {{> components/category/sidebar}}
+                </aside>
+            {{/if}}
+        {{else}}
+            <aside class="page-sidebar" id="faceted-search-container">
+                {{> components/category/sidebar}}
+            </aside>
+        {{/if}}
+    {{else if category.faceted_search_enabled}}
+        {{#if theme_settings.show_subcategories_as_grid}}
+            {{#if category.products}}
+                <aside class="page-sidebar" id="faceted-search-container">
+                    {{> components/category/sidebar}}
+                </aside>
+            {{/if}}
+        {{else}}
+            <aside class="page-sidebar" id="faceted-search-container">
+                {{> components/category/sidebar}}
+            </aside>
+        {{/if}}
+    {{else if category.shop_by_price}}
+        {{#if theme_settings.shop_by_price_visibility}}
+            {{#if theme_settings.show_subcategories_as_grid}}
+                {{#if category.products}}
+                    <aside class="page-sidebar" id="faceted-search-container">
+                        {{> components/category/sidebar}}
+                    </aside>
+                {{/if}}
+            {{else}}
+                <aside class="page-sidebar" id="faceted-search-container">
+                    {{> components/category/sidebar}}
+                </aside>
+            {{/if}}
+        {{/if}}
+    {{/if}} -->
+    <main class="page-content" id="product-listing-container">
+        {{{region name="above_category_products"}}}
+        {{#and category.subcategories theme_settings.show_subcategories_as_grid}}
+            {{> components/f/category/sub-categories}}
+        {{/and}}
+        {{#if category.products}}
+            {{> components/category/product-listing settings=../settings}}
+        {{else}}
+            {{#if theme_settings.show_subcategories_as_grid}}
+                {{#unless category.subcategories}}
+                    <p class="category-noProducts">{{lang 'categories.no_products'}}</p>
+                {{/unless}}
+            {{else}}
+                <p>{{lang 'categories.no_products'}}</p>
+            {{/if}}
+        {{/if}}
+        {{{region name="below_category_products"}}}
+    </main>
+</div>
+<style>
+    .page-heading {
+        margin: unset;
+        margin-bottom: unset;
+    }
+    .breadcrumbs {
+        margin-bottom: 0.5rem;
+    }
+    .form-select--small {
+        line-height: unset;
+    }
+    .actionBar {
+        margin: 0.8rem 0 0px 0px;
+    }
+    .actionBar .form-field {
+        margin: 0 0 1rem;
+    }
+    .product .card {
+        margin-bottom: 1.5rem;
+    }
+</style>
+
+{{/partial}}
+{{> layout/base}}

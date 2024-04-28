@@ -1,0 +1,30 @@
+.banners {
+    background-color: stencilColor("global_banner_backgroundColor");
+    color: stencilColor("global_banner_foregroundColor");
+    font-family: $secondary-font-family;
+    font-style: $secondary-font-style;
+
+    &.banner-bottom {
+        margin-bottom: spacing("base");
+    }
+
+    a {
+        color: stencilColor("global_banner_foregroundColor");
+
+        &:hover {
+            color: rgba(stencilColor("global_banner_foregroundColor"),0.8);
+        }
+
+        &:active {
+            color: rgba(stencilColor("global_banner_foregroundColor"),0.9);
+        }
+    }
+}
+
+.banner {
+    padding: 0 spacing("single");
+}
+
+.banners.homepage {
+    margin-bottom: spacing("single");
+}

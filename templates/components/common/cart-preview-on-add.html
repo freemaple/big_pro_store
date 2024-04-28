@@ -1,0 +1,47 @@
+<div class="previewCart">
+    {{#if cart.items.length}}
+        <ul class="previewCartList">
+            {{#withLast cart.items}}
+                <li class="previewCartItem">
+                    <div class="previewCartItem-content item-added">
+                        <h6 class="previewCartItem-name">
+                            Item added to your cart
+                        </h6>
+                    </div>
+                </li>
+            {{/withLast}}
+        </ul>
+        <div class="previewCartAction">
+            {{#if cart.show_primary_checkout_button}}
+                <div class="previewCartAction-checkout">
+                    <a href="{{urls.checkout.single_address}}" class="button button--small button--primary">
+                        {{lang 'cart.preview.checkout_now'}}
+                    </a>
+                </div>
+            {{/if}}
+
+            <div class="previewCartAction-viewCart{{#unless cart.show_primary_checkout_button}} previewCartAction-viewCart--sole{{/unless}}">
+                <a href="{{urls.cart}}" class="button button--small button--action">
+                    {{lang 'cart.preview.view_cart'}}
+                </a>
+            </div>
+
+            {{#if cart.show_multiple_address_shipping}}
+                <div class="previewCartAction-checkoutMultiple">
+                    <a href="{{urls.checkout.multiple_address}}">
+                        {{lang 'cart.preview.checkout_multiple'}}
+                    </a>
+                </div>
+            {{/if}}
+        </div>
+        {{#if theme_settings.show_payment_methods_in_cart}}
+            <div class="previewCartAction">
+                {{> components/f/footer/payment-icons}}
+            </div>
+        {{/if}}
+    {{else}}
+        <div class="previewCart-emptyBody">
+            {{lang 'cart.checkout.empty_cart'}}
+        </div>
+    {{/if}}
+</div>

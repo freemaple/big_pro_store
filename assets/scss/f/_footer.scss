@@ -1,0 +1,228 @@
+address {
+    font-style: normal;
+}
+// 1. Use padding on container so JS can detect heights easier on cart page
+.footer {
+    border-top: none;
+    color: stencilColor("footer-textColor");
+    padding: 0; // 1
+
+    > .container {
+        padding-top: spacing("double"); // 1
+        padding-bottom: spacing("double"); // 1
+    }
+
+    .button--primary {
+        background-color: stencilColor("footer-buttonColor");
+        border-color: stencilColor("footer-buttonColor");
+        color: stencilColor("footer-buttonTextColor");
+
+        &:hover {
+            background-color: stencilColor("footer-buttonColorHover");
+            border-color: stencilColor("footer-buttonColorHover");
+            color: stencilColor("footer-buttonTextColorHover");
+        }
+
+        &:active,
+        &:focus {
+            background-color: stencilColor("footer-buttonColorActive");
+            border-color: stencilColor("footer-buttonColorActive");
+            color: stencilColor("footer-buttonTextColorActive");
+        }
+    }
+}
+
+.footer-info-heading {
+    color: stencilColor("footer-headingColor");
+    font-weight: stencilFontWeight("headings-font");
+    text-transform: uppercase;
+}
+
+.footer-info-list a {
+    color: stencilColor("footer-linkColor");
+
+    &:hover {
+        color: stencilColor("footer-linkColorHover");
+    }
+
+    &:active,
+    &:focus {
+        color: stencilColor("footer-linkColorActive");
+    }
+}
+
+.footer-info-col {
+    color: stencilColor("footer-textColor");
+}
+
+.footer-info-col--small {
+    @include breakpoint("medium") {
+        width: width("2/12");
+    }
+
+    @include breakpoint("large") {
+        width: 12%;
+    }
+}
+
+.footer-info-col--large {
+    width: 100%;
+
+    @include breakpoint("medium") {
+        float: right;
+        width: width("4/12");
+    }
+}
+
+.footer-copyright {
+    a,
+    > .powered-by {
+        color: stencilColor("footer-linkColor");
+    }
+}
+
+.footer-phone {
+    @include breakpoint("medium") {
+        display: none;
+    }
+}
+
+.footer-newsletter-info > .footer-info-heading {
+    margin-top: 0;
+}
+
+.footer-newsletter-summary {
+    font-size: fontSize("tiny");
+    margin-top: spacing("half");
+    text-align: center;
+
+    @include breakpoint("small") {
+        text-align: left;
+    }
+}
+
+.footer-simple {
+    padding-top: 0;
+
+    .footer-simple-newsletter,
+    .container {
+        @include clearfix;
+    }
+
+    .container {
+        margin: 0;
+        max-width: none;
+        width: auto;
+    }
+
+    .footer-simple-newsletter {
+        background-color: stencilColor("simple-footer-newsletter-backgroundColor");
+        border-bottom: 1px solid stencilColor("simple-footer-keylineColor");
+        border-top: 1px solid stencilColor("simple-footer-keylineColor");
+        padding: spacing("single") 0;
+
+        .form-field {
+            margin: 0;
+        }
+
+        .form {
+            margin: 0;
+        }
+
+        .footer-newsletter-info {
+            text-align: center;
+
+            .footer-info-heading {
+                color: stencilColor("simple-footer-newsletter-textColor");
+                margin-bottom: spacing("single");
+            }
+
+            p {
+                display: none;
+            }
+        }
+
+        @include breakpoint("medium") {
+            .footer-newsletter-info {
+                @include grid-column(4);
+                display: table;
+                height: 4rem;
+                text-align: left;
+
+                .footer-info-heading {
+                    display: table-cell;
+                    margin-bottom: 0;
+                    vertical-align: middle;
+                }
+            }
+
+            .form {
+                @include grid-column(8);
+            }
+
+            .form-prefixPostfix .form-input,
+            .form-prefixPostfix .button {
+                width: auto;
+            }
+
+            .form-prefixPostfix .button {
+                margin: 0;
+            }
+        }
+
+        @include breakpoint("large") {
+            .footer-newsletter-info {
+                @include grid-column(3);
+            }
+
+            .form {
+                @include grid-column(9);
+            }
+        }
+    }
+
+    .footer-simple-navigation {
+        text-align: center;
+
+        .footer-info-list {
+            margin-top: spacing("single");
+
+            @include breakpoint("medium") {
+                margin-top: spacing("single");
+            }
+
+            li {
+                @include breakpoint("medium") {
+                    display: inline-block;
+                }
+            }
+
+            a {
+                display: inline-block;
+                padding: spacing("half") spacing("half");
+                text-transform: uppercase;
+
+                @include breakpoint("medium") {
+                    padding: spacing("single") spacing("half");
+                }
+            }
+        }
+    }
+
+    .footer-simple-info {
+        text-align: center;
+    }
+
+    .footer-info-heading {
+        margin-top: 0;
+    }
+
+    .footer-copyright {
+        text-align: center;
+    }
+
+    .footer-payment-icons {
+        justify-content: center;
+        margin-bottom: spacing("single");
+    }
+}
